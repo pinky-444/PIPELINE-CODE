@@ -1,0 +1,37 @@
+NODE{
+    stage ('scm checkout'){
+    git
+   }
+   stage('compile-package'){
+   //get mvn home path
+   def mvnhome = tool name: 'maven-3' ,type: 'maven'
+   sh "${mvnhome}/bin/mvn package"
+   }
+   stage('sonarqube analyisis'){
+      def mvnhome = tool name: 'maven-3' ,type: 'maven'
+      with sonarqubeEnv(sonar -6'){
+         sh "${mvnhome}/bin/mvn sonar:sonar"
+         }
+      }
+      stage'(email notification'){
+      mail bcc: ", body: "wel come to emailnotification 
+      Thanks
+      hari"", cc: ", from : ", replyTo: ",subject :jenkins job', to:"sankar927@gmail.com"
+      }
+      stage('slack notification'){
+      slacesend baseURL:
+      chanel: "pipeline ;
+      color: 'good"
+      message: "welcome to jenkins slack"
+      TeamDomain: ""
+      tokcencreditionalid: "slacl demo"
+      }
+      }
+      
+      
+         
+         
+
+
+   
+   
